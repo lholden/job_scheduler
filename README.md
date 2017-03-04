@@ -1,7 +1,9 @@
 # JobScheduler
 [![](https://img.shields.io/crates/v/job_scheduler.svg)](https://crates.io/crates/job_scheduler) [![](https://img.shields.io/crates/l/job_scheduler.svg)](https://raw.githubusercontent.com/lholden/job_scheduler/master/LICENSE)
 
-A simple cron-like job scheduling library for Rust.
+A simple cron-like job scheduling library for Rust. 
+
+(Currently only supporting Rust Nightly due to our dependency on the [cron](https://github.com/zslayton/cron) library.)
 
 ## Usage
 

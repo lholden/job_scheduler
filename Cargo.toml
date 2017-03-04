@@ -6,7 +6,6 @@ description = "A simple cron-like job scheduling library for Rust."
 
 repository = "https://github.com/lholden/job_scheduler"
 
-license = "MIT"
 license-file = "LICENSE"
 
 readme = "README.md"
