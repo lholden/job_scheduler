@@ -57,7 +57,7 @@ fn main() {
 }
 ```
 
-## Similar libraries
+## Similar Libraries
 
-* [schedule-rs](https://github.com/mehcode/schedule-rs) is a similar rust library that implementing it's own cron syntax.
-* [cron](https://github.com/zslayton/cron) is a cron expression parser for rust.
+* [cron](https://github.com/zslayton/cron) the cron expression parser we use.
+* [schedule-rs](https://github.com/mehcode/schedule-rs) is a similar rust library that implements it's own cron expression parser.
