@@ -4,6 +4,7 @@ version = "1.0.0"
 authors = ["Lori Holden <noreply@loriholden.com>"]
 description = "A simple cron-like job scheduling library for Rust."
 
+documentation = "https://docs.rs/job_scheduler/"
 repository = "https://github.com/lholden/job_scheduler"
 
 license-file = "LICENSE"

@@ -1,11 +1,13 @@
 # JobScheduler
-[![](https://img.shields.io/crates/v/job_scheduler.svg)](https://crates.io/crates/job_scheduler) [![](https://img.shields.io/crates/l/job_scheduler.svg)](https://raw.githubusercontent.com/lholden/job_scheduler/master/LICENSE) [![](https://travis-ci.org/lholden/job_scheduler.svg?branch=master)](https://travis-ci.org/lholden/job_scheduler)
+[![](https://docs.rs/job_scheduler/badge.svg)](https://docs.rs/job_scheduler) [![](https://img.shields.io/crates/v/job_scheduler.svg)](https://crates.io/crates/job_scheduler) [![](https://img.shields.io/crates/l/job_scheduler.svg)](https://raw.githubusercontent.com/lholden/job_scheduler/master/LICENSE) [![](https://travis-ci.org/lholden/job_scheduler.svg?branch=master)](https://travis-ci.org/lholden/job_scheduler)
 
 A simple cron-like job scheduling library for Rust. 
 
 (Currently only supporting Rust Nightly due to our dependency on the [cron](https://github.com/zslayton/cron) library.)
 
 ## Usage
+
+Please see the [Documentation](https://docs.rs/job_scheduler/) for more details.
 
 Be sure to add the job_scheduler crate to your `Cargo.toml`:
 
