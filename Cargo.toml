@@ -1,13 +1,13 @@
 [package]
 name = "job_scheduler"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Lori Holden <noreply@loriholden.com>"]
 description = "A simple cron-like job scheduling library for Rust."
 
 documentation = "https://docs.rs/job_scheduler/"
 repository = "https://github.com/lholden/job_scheduler"
 
-license-file = "LICENSE"
+license = "MIT"
 
 readme = "README.md"
 keywords = ["cron", "crontab", "scheduler", "job"]
