@@ -145,7 +145,7 @@ impl<'a> JobScheduler<'a> {
     /// }
     /// ```
     pub fn tick(&mut self) {
-        for job in &mut self.jobs {
+        for mut job in &mut self.jobs {
             job.tick();
         }
     }
