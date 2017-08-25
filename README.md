@@ -75,4 +75,10 @@ JobScheduler is licensed under either of
  * MIT license ([LICENSE-MIT](LICENSE-MIT) or
    http://opensource.org/licenses/MIT)
 
-at your option.
+## Contributing
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall
+be dual licensed as above, without any additional terms or conditions.
+
+For more information, please see the [CONTRIBUTING](CONTRIBUTING.md) file.

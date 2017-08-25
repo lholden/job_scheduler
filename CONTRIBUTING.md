@@ -15,8 +15,9 @@ the GitHub issue that you want to work on it. This is to prevent duplicated
 efforts from contributors on the same issue.
 
 Unless you explicitly state otherwise, any contribution intentionally
-submitted for inclusion in JobScheduler by you shall be dual licensed as
-MIT/Apache-2.0, without any additional terms or conditions.
+submitted for inclusion in JobScheduler by you, as defined in the Apache-2.0
+license, shall be dual licensed as MIT/Apache-2.0, without any additional
+terms or conditions.
 
 ## Pull Request Checklist
 
