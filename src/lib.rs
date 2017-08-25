@@ -99,7 +99,6 @@ impl<'a> Job<'a> {
             return;
         }
         for event in self.schedule.after(&self.last_tick.unwrap()) {
-            println!("{}", event);
             if event > now {
                 break;
             }
