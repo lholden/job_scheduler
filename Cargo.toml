@@ -1,6 +1,6 @@
 [package]
 name = "job_scheduler"
-version = "1.0.3"
+version = "1.0.4"
 authors = ["Lori Holden <noreply@loriholden.com>"]
 description = "A simple cron-like job scheduling library for Rust."
 
