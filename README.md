@@ -1,9 +1,11 @@
 # JobScheduler
 [![](https://docs.rs/job_scheduler/badge.svg)](https://docs.rs/job_scheduler) [![](https://img.shields.io/crates/v/job_scheduler.svg)](https://crates.io/crates/job_scheduler) [![](https://travis-ci.org/lholden/job_scheduler.svg?branch=master)](https://travis-ci.org/lholden/job_scheduler)
 
-A simple cron-like job scheduling library for Rust. 
+A simple cron-like job scheduling library for Rust.
 
 (Currently only supporting Rust Nightly due to our dependency on the [cron](https://github.com/zslayton/cron) library.)
+
+NOTE: As of May 30th 2018 it looks like the latest nightly is breaking the Cron crate. For now, the easiest way to address this is to use an older version of nightly. 2018-05-15 is known to be working and can be set with `rustup override set nightly-2018-05-16`.
 
 ## Usage
 
