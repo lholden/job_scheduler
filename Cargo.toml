@@ -15,5 +15,5 @@ keywords = ["cron", "crontab", "scheduler", "job"]
 categories = ["date-and-time"]
 
 [dependencies]
-cron = "~0.4"
+cron = "~0.6"
 chrono = "~0.4"
