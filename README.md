@@ -3,8 +3,6 @@
 
 A simple cron-like job scheduling library for Rust.
 
-(Currently only supporting Rust Nightly due to our dependency on the [cron](https://github.com/zslayton/cron) library.)
-
 ## Usage
 
 Please see the [Documentation](https://docs.rs/job_scheduler/) for more details.
@@ -29,14 +27,14 @@ sec   min   hour   day of month   month   day of week   year
 Time is specified for `UTC` and not your local timezone. Note that the year may
 be omitted.
 
-Comma separated values such as `5,8,10` represent more than one time value. So 
-for example, a schedule of `0 2,14,26 * * * *` would execute on the 2nd, 14th, 
+Comma separated values such as `5,8,10` represent more than one time value. So
+for example, a schedule of `0 2,14,26 * * * *` would execute on the 2nd, 14th,
 and 26th minute of every hour.
 
-Ranges can be specified with a dash. A schedule of `0 0 * 5-10 * *` would 
+Ranges can be specified with a dash. A schedule of `0 0 * 5-10 * *` would
 execute once per hour but only on day 5 through 10 of the month.
 
-Day of the week can be specified as an abbreviation or the full name. A 
+Day of the week can be specified as an abbreviation or the full name. A
 schedule of `0 0 6 * * Sun,Sat` would execute at 6am on Sunday and Saturday.
 
 A simple usage example:
