@@ -69,6 +69,7 @@ pub struct Job<'a> {
     schedule: Schedule,
     run: Box<(FnMut() -> ()) + 'a>,
     last_tick: Option<DateTime<Utc>>,
+    limit_missed_runs: usize,
 }
 
 impl<'a> Job<'a> {
@@ -87,8 +88,8 @@ impl<'a> Job<'a> {
         Job {
             schedule,
             run: Box::new(run),
-
             last_tick: None,
+            limit_missed_runs: 1,
         }
     }
 
@@ -98,15 +99,32 @@ impl<'a> Job<'a> {
             self.last_tick = Some(now);
             return;
         }
-        for event in self.schedule.after(&self.last_tick.unwrap()) {
-            if event > now {
-                break;
+        if self.limit_missed_runs > 0 {
+            for event in self.schedule.after(&self.last_tick.unwrap()).take(self.limit_missed_runs) {
+                if event > now { break; }
+                (self.run)();
             }
-
-            (self.run)();
+        }
+        else {
+            for event in self.schedule.after(&self.last_tick.unwrap()) {
+                if event > now { break; }
+                (self.run)();
+            }
         }
 
         self.last_tick = Some(now);
+    }
+
+    /// Set the limit for missed jobs in the case of delayed runs. Setting to 0 means unlimited.
+    /// 
+    /// ```rust,ignore
+    /// let mut job = Job::new("0/1 * * * * *".parse().unwrap(), || {
+    ///     println!("I get executed every 1 seconds!");
+    /// });
+    /// job.limit_missed_runs(99);
+    /// ```
+    pub fn limit_missed_runs(&mut self, limit: usize) {
+        self.limit_missed_runs = limit;
     }
 }
 
