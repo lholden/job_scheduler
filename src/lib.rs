@@ -129,6 +129,18 @@ impl<'a> Job<'a> {
     pub fn limit_missed_runs(&mut self, limit: usize) {
         self.limit_missed_runs = limit;
     }
+
+    /// Set last tick to force re-running of missed runs.
+    ///
+    /// ```rust,ignore
+    /// let mut job = Job::new("0/1 * * * * *".parse().unwrap(), || {
+    ///     println!("I get executed every 1 seconds!");
+    /// });
+    /// job.last_tick(Some(Utc::now()));
+    /// ```
+    pub fn last_tick(&mut self, last_tick: Option<DateTime<Utc>>) {
+        self.last_tick = last_tick;
+    }
 }
 
 #[derive(Default)]
