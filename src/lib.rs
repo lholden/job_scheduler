@@ -60,8 +60,7 @@ extern crate chrono;
 extern crate cron;
 extern crate uuid;
 
-use chrono::DateTime;
-use chrono::Utc;
+use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
 use uuid::Uuid;
 
@@ -217,5 +216,33 @@ impl<'a> JobScheduler<'a> {
         for mut job in &mut self.jobs {
             job.tick();
         }
+    }
+
+    /// The `time_till_next_job` method returns the duration till the next job
+    /// is supposed to run. This can be used to sleep until then without waking
+    /// up at a fixed interval.AsMut
+    ///
+    /// ```rust, ignore
+    /// loop {
+    ///     sched.tick();
+    ///     std::thread::sleep(sched.time_till_next_job());
+    /// }
+    /// ```
+    pub fn time_till_next_job(&self) -> std::time::Duration {
+        if self.jobs.is_empty() {
+            // Take a guess if there are no jobs.
+            return std::time::Duration::from_millis(500);
+        }
+        let mut duration = Duration::zero();
+        let now = Utc::now();
+        for job in self.jobs.iter() {
+            for event in job.schedule.upcoming(offset::Utc).take(1) {
+                let d = event - now;
+                if duration.is_zero() || d < duration {
+                    duration = d;
+                }
+            }
+        }
+        duration.to_std().unwrap()
     }
 }
