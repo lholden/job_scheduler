@@ -84,8 +84,9 @@ impl<'a> Job<'a> {
     /// Job::new(s, || println!("I have a complex schedule...") );
     /// ```
     pub fn new<T>(schedule: Schedule, run: T) -> Job<'a>
-        where T: 'a,
-              T: FnMut() -> ()
+    where
+        T: 'a,
+        T: FnMut() -> (),
     {
         Job {
             schedule,
@@ -103,14 +104,21 @@ impl<'a> Job<'a> {
             return;
         }
         if self.limit_missed_runs > 0 {
-            for event in self.schedule.after(&self.last_tick.unwrap()).take(self.limit_missed_runs) {
-                if event > now { break; }
+            for event in self
+                .schedule
+                .after(&self.last_tick.unwrap())
+                .take(self.limit_missed_runs)
+            {
+                if event > now {
+                    break;
+                }
                 (self.run)();
             }
-        }
-        else {
+        } else {
             for event in self.schedule.after(&self.last_tick.unwrap()) {
-                if event > now { break; }
+                if event > now {
+                    break;
+                }
                 (self.run)();
             }
         }
@@ -119,7 +127,7 @@ impl<'a> Job<'a> {
     }
 
     /// Set the limit for missed jobs in the case of delayed runs. Setting to 0 means unlimited.
-    /// 
+    ///
     /// ```rust,ignore
     /// let mut job = Job::new("0/1 * * * * *".parse().unwrap(), || {
     ///     println!("I get executed every 1 seconds!");
@@ -211,5 +219,3 @@ impl<'a> JobScheduler<'a> {
         }
     }
 }
-
-
