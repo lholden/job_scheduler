@@ -1,6 +1,6 @@
 extern crate job_scheduler;
 
-use job_scheduler::{JobScheduler, Job};
+use job_scheduler::{Job, JobScheduler};
 use std::time::Duration;
 
 fn main() {

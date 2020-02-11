@@ -60,8 +60,7 @@ extern crate chrono;
 extern crate cron;
 extern crate uuid;
 
-use chrono::DateTime;
-use chrono::Utc;
+use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
 use uuid::Uuid;
 
@@ -84,8 +83,9 @@ impl<'a> Job<'a> {
     /// Job::new(s, || println!("I have a complex schedule...") );
     /// ```
     pub fn new<T>(schedule: Schedule, run: T) -> Job<'a>
-        where T: 'a,
-              T: FnMut() -> ()
+    where
+        T: 'a,
+        T: FnMut() -> (),
     {
         Job {
             schedule,
@@ -103,14 +103,21 @@ impl<'a> Job<'a> {
             return;
         }
         if self.limit_missed_runs > 0 {
-            for event in self.schedule.after(&self.last_tick.unwrap()).take(self.limit_missed_runs) {
-                if event > now { break; }
+            for event in self
+                .schedule
+                .after(&self.last_tick.unwrap())
+                .take(self.limit_missed_runs)
+            {
+                if event > now {
+                    break;
+                }
                 (self.run)();
             }
-        }
-        else {
+        } else {
             for event in self.schedule.after(&self.last_tick.unwrap()) {
-                if event > now { break; }
+                if event > now {
+                    break;
+                }
                 (self.run)();
             }
         }
@@ -119,7 +126,7 @@ impl<'a> Job<'a> {
     }
 
     /// Set the limit for missed jobs in the case of delayed runs. Setting to 0 means unlimited.
-    /// 
+    ///
     /// ```rust,ignore
     /// let mut job = Job::new("0/1 * * * * *".parse().unwrap(), || {
     ///     println!("I get executed every 1 seconds!");
@@ -210,6 +217,32 @@ impl<'a> JobScheduler<'a> {
             job.tick();
         }
     }
+
+    /// The `time_till_next_job` method returns the duration till the next job
+    /// is supposed to run. This can be used to sleep until then without waking
+    /// up at a fixed interval.AsMut
+    ///
+    /// ```rust, ignore
+    /// loop {
+    ///     sched.tick();
+    ///     std::thread::sleep(sched.time_till_next_job());
+    /// }
+    /// ```
+    pub fn time_till_next_job(&self) -> std::time::Duration {
+        if self.jobs.is_empty() {
+            // Take a guess if there are no jobs.
+            return std::time::Duration::from_millis(500);
+        }
+        let mut duration = Duration::zero();
+        let now = Utc::now();
+        for job in self.jobs.iter() {
+            for event in job.schedule.upcoming(offset::Utc).take(1) {
+                let d = event - now;
+                if duration.is_zero() || d < duration {
+                    duration = d;
+                }
+            }
+        }
+        duration.to_std().unwrap()
+    }
 }
-
-
