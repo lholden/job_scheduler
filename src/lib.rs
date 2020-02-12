@@ -64,13 +64,16 @@ use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
 use uuid::Uuid;
 
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub struct JobHandle(Uuid);
+
 /// A schedulable `Job`.
 pub struct Job<'a> {
     schedule: Schedule,
     run: Box<(FnMut() -> ()) + 'a>,
     last_tick: Option<DateTime<Utc>>,
     limit_missed_runs: usize,
-    job_id: Uuid,
+    job_id: JobHandle,
 }
 
 impl<'a> Job<'a> {
@@ -92,7 +95,7 @@ impl<'a> Job<'a> {
             run: Box::new(run),
             last_tick: None,
             limit_missed_runs: 1,
-            job_id: Uuid::new_v4(),
+            job_id: JobHandle(Uuid::new_v4()),
         }
     }
 
@@ -170,7 +173,7 @@ impl<'a> JobScheduler<'a> {
     ///     println!("I get executed every 10 seconds!");
     /// }));
     /// ```
-    pub fn add(&mut self, job: Job<'a>) -> Uuid {
+    pub fn add(&mut self, job: Job<'a>) -> JobHandle {
         let job_id = job.job_id;
         self.jobs.push(job);
 
@@ -186,7 +189,7 @@ impl<'a> JobScheduler<'a> {
     /// }));
     /// sched.remove(job_id);
     /// ```
-    pub fn remove(&mut self, job_id: Uuid) -> bool {
+    pub fn remove(&mut self, job_id: JobHandle) -> bool {
         let mut found_index = None;
         for (i, job) in self.jobs.iter().enumerate() {
             if job.job_id == job_id {
