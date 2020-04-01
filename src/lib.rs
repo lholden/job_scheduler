@@ -62,7 +62,7 @@ extern crate uuid;
 
 use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
-use uuid::Uuid;
+pub use uuid::Uuid;
 
 /// A schedulable `Job`.
 pub struct Job<'a> {
