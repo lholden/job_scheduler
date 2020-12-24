@@ -37,7 +37,6 @@
 //! A simple usage example:
 //!
 //! ```rust,ignore
-//! extern crate job_scheduler;
 //! use job_scheduler::{JobScheduler, Job};
 //! use std::time::Duration;
 //!
@@ -56,10 +55,6 @@
 //! }
 //! ```
 
-extern crate chrono;
-extern crate cron;
-extern crate uuid;
-
 use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
 pub use uuid::Uuid;
@@ -67,7 +62,7 @@ pub use uuid::Uuid;
 /// A schedulable `Job`.
 pub struct Job<'a> {
     schedule: Schedule,
-    run: Box<(FnMut() -> ()) + 'a>,
+    run: Box<dyn (FnMut() -> ()) + 'a>,
     last_tick: Option<DateTime<Utc>>,
     limit_missed_runs: usize,
     job_id: Uuid,
@@ -213,7 +208,7 @@ impl<'a> JobScheduler<'a> {
     /// }
     /// ```
     pub fn tick(&mut self) {
-        for mut job in &mut self.jobs {
+        for job in &mut self.jobs {
             job.tick();
         }
     }
