@@ -1,5 +1,3 @@
-extern crate job_scheduler;
-
 use job_scheduler::{Job, JobScheduler};
 use std::time::Duration;
 

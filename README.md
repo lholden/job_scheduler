@@ -40,7 +40,6 @@ schedule of `0 0 6 * * Sun,Sat` would execute at 6am on Sunday and Saturday.
 A simple usage example:
 
 ```rust
-extern crate job_scheduler;
 use job_scheduler::{JobScheduler, Job};
 use std::time::Duration;
 
