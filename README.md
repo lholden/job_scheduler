@@ -1,3 +1,9 @@
+**NO LONGER MAINTAINED**
+
+The project I created this crate for is no longer in use, so I haven't really had the time to keep on top of keeping things up to date. I recommend looking at other options if you need the functionality this project provides.
+
+If someone would like to take over the project, please let me know.
+
 # JobScheduler
 [![](https://docs.rs/job_scheduler/badge.svg)](https://docs.rs/job_scheduler) [![](https://img.shields.io/crates/v/job_scheduler.svg)](https://crates.io/crates/job_scheduler) [![](https://travis-ci.org/lholden/job_scheduler.svg?branch=master)](https://travis-ci.org/lholden/job_scheduler)
 
