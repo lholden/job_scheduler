@@ -15,6 +15,6 @@ keywords = ["cron", "crontab", "scheduler", "job"]
 categories = ["date-and-time"]
 
 [dependencies]
-cron = "~0.6"
+cron = "~0.9.0"
 chrono = "~0.4"
 uuid = { version = "0.8", features = ["v4"] }

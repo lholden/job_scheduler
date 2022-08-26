@@ -67,7 +67,7 @@ pub use uuid::Uuid;
 /// A schedulable `Job`.
 pub struct Job<'a> {
     schedule: Schedule,
-    run: Box<(FnMut() -> ()) + 'a>,
+    run: Box<dyn (FnMut() -> ()) + 'a>,
     last_tick: Option<DateTime<Utc>>,
     limit_missed_runs: usize,
     job_id: Uuid,
@@ -200,6 +200,11 @@ impl<'a> JobScheduler<'a> {
         }
 
         found_index.is_some()
+    }
+    ///Checks if the jobs list is empty
+
+    pub fn is_empty(&self) -> bool {
+        return self.jobs.is_empty()
     }
 
     /// The `tick` method increments time for the JobScheduler and executes
