@@ -67,7 +67,7 @@ pub use uuid::Uuid;
 /// A schedulable `Job`.
 pub struct Job<'a> {
     schedule: Schedule,
-    run: Box<(FnMut() -> ()) + 'a>,
+    run: Box<dyn (FnMut() -> ()) + 'a>,
     last_tick: Option<DateTime<Utc>>,
     limit_missed_runs: usize,
     job_id: Uuid,
@@ -213,7 +213,7 @@ impl<'a> JobScheduler<'a> {
     /// }
     /// ```
     pub fn tick(&mut self) {
-        for mut job in &mut self.jobs {
+        for job in &mut self.jobs {
             job.tick();
         }
     }
